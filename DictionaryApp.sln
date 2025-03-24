@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryApp", "DictionaryApp\DictionaryApp.csproj", "{90C1D74B-91AE-4FF3-A2E6-75C8EE40F72A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6B558D0E-068E-4153-9571-A6E9B25B29C0}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents\logo.png = ..\..\..\Documents\logo.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90C1D74B-91AE-4FF3-A2E6-75C8EE40F72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C1D74B-91AE-4FF3-A2E6-75C8EE40F72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C1D74B-91AE-4FF3-A2E6-75C8EE40F72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C1D74B-91AE-4FF3-A2E6-75C8EE40F72A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {700A002C-E369-4813-8DE6-7075758A35FD}
+	EndGlobalSection
+EndGlobal
