@@ -1,25 +1,20 @@
-﻿using System;
-
-namespace DictionaryApp
+﻿ public class WordEntry
 {
-    public class WordEntry
+    public string English { get; set; }  // Từ tiếng Anh
+    public string Meaning { get; set; }  // Nghĩa tiếng Việt
+    public string Pronunciation { get; set; } // Phiên âm
+    public string Type { get; set; } // Loại từ (danh từ, tính từ, v.v.)
+
+    public WordEntry(string english, string meaning, string pronunciation, string type)
     {
-        public string English { get; set; }
-        public string Vietnamese { get; set; }
-        public string PartOfSpeech { get; set; }
-        public string Pronunciation { get; set; }
+        English = english;
+        Meaning = meaning;
+        Pronunciation = pronunciation;
+        Type = type;
+    }
 
-        public WordEntry(string english, string vietnamese, string partOfSpeech, string pronunciation)
-        {
-            English = english;
-            Vietnamese = vietnamese;
-            PartOfSpeech = partOfSpeech;
-            Pronunciation = pronunciation;
-        }
-
-        public override string ToString()
-        {
-            return $"{English} [{Pronunciation}] ({PartOfSpeech}): {Vietnamese}";
-        }
+    public override string ToString()
+    {
+        return $"{English} [{Pronunciation}] ({Type}): {Meaning}";
     }
 }

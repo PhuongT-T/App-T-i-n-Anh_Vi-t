@@ -32,6 +32,9 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
+            this.btnAddToFavorites = new System.Windows.Forms.Button();
+            this.btnShowFavorites = new System.Windows.Forms.Button();
+            this.txtWord = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -69,11 +72,43 @@
             this.lblResult.TabIndex = 3;
             this.lblResult.Text = "...";
             // 
+            // btnAddToFavorites
+            // 
+            this.btnAddToFavorites.AllowDrop = true;
+            this.btnAddToFavorites.Location = new System.Drawing.Point(659, 152);
+            this.btnAddToFavorites.Name = "btnAddToFavorites";
+            this.btnAddToFavorites.Size = new System.Drawing.Size(115, 100);
+            this.btnAddToFavorites.TabIndex = 4;
+            this.btnAddToFavorites.Text = "Yêu thích";
+            this.btnAddToFavorites.UseVisualStyleBackColor = true;
+            // 
+            // btnShowFavorites
+            // 
+            this.btnShowFavorites.Location = new System.Drawing.Point(376, 153);
+            this.btnShowFavorites.Name = "btnShowFavorites";
+            this.btnShowFavorites.Size = new System.Drawing.Size(264, 66);
+            this.btnShowFavorites.TabIndex = 5;
+            this.btnShowFavorites.Text = "Danh sách từ yêu thích";
+            this.btnShowFavorites.UseVisualStyleBackColor = true;
+            // 
+            // txtWord
+            // 
+            this.txtWord.Location = new System.Drawing.Point(376, 239);
+            this.txtWord.Name = "txtWord";
+            this.txtWord.Size = new System.Drawing.Size(263, 31);
+            this.txtWord.TabIndex = 6;
+            this.txtWord.Text = "...";
+          
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRemoveFromFavorites);
+            this.Controls.Add(this.txtWord);
+            this.Controls.Add(this.btnShowFavorites);
+            this.Controls.Add(this.btnAddToFavorites);
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
@@ -91,6 +126,10 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblResult;
+        private System.Windows.Forms.Button btnAddToFavorites;
+        private System.Windows.Forms.Button btnShowFavorites;
+        private System.Windows.Forms.TextBox txtWord;
+        private System.Windows.Forms.Button btnRemoveFromFavorites;
     }
 }
 
