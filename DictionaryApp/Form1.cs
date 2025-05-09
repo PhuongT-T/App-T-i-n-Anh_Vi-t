@@ -8,7 +8,7 @@ namespace DictionaryApp
 {
     public partial class Form1 : Form
     {
-        private Dictionary<string, WordEntry> dictionary;
+        private DictionaryManager dictionary; // Dùng để sử lí thủ công
         private HashSet<string> favoriteWords;
         private readonly string dictionaryPath = @"C:\Users\Phuong\Documents\anhviet.txt";
         private readonly string backgroundPath = @"C:\Users\Phuong\Documents\logo.png";
@@ -16,18 +16,16 @@ namespace DictionaryApp
         public Form1()
         {
             InitializeComponent();
-            dictionary = new Dictionary<string, WordEntry>();
+            dictionary = new DictionaryManager(); // 👈 Khởi tạo bảng băm thủ công
             favoriteWords = new HashSet<string>();
 
             LoadDictionary();
             SetBackgroundImage();
 
-            // 🔗 Liên kết sự kiện nút yêu thích
             btnShowFavorites.Click += new EventHandler(btnShowFavorites_Click);
             btnAddToFavorites.Click += new EventHandler(btnAddToFavorites_Click);
         }
 
-        // ✅ Load từ điển từ file
         private void LoadDictionary()
         {
             if (!File.Exists(dictionaryPath))
@@ -48,9 +46,10 @@ namespace DictionaryApp
                         string partOfSpeech = parts[2].Trim();
                         string pronunciation = parts[3].Trim();
 
-                        if (!dictionary.ContainsKey(english))
+                        if (!dictionary.Contains(english)) // 👈 Dùng phương thức Contains của bảng băm
                         {
-                            dictionary.Add(english, new WordEntry(english, vietnamese, pronunciation, partOfSpeech));
+                            var entry = new WordEntry(english, vietnamese, pronunciation, partOfSpeech);
+                            dictionary.AddWord(english, entry); // 👈 Thêm từ
                         }
                     }
                 }
@@ -61,7 +60,6 @@ namespace DictionaryApp
             }
         }
 
-        // ✅ Kiểm tra và tải hình nền
         private void SetBackgroundImage()
         {
             if (File.Exists(backgroundPath))
@@ -71,7 +69,6 @@ namespace DictionaryApp
             }
         }
 
-        // ✅ Xử lý tìm kiếm
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string word = txtSearch.Text.Trim();
@@ -82,8 +79,9 @@ namespace DictionaryApp
                 return;
             }
 
-            if (dictionary.TryGetValue(word, out WordEntry entry))
+            if (dictionary.Contains(word)) // 👈 Kiểm tra tồn tại
             {
+                WordEntry entry = dictionary.GetDefinition(word); // 👈 Lấy định nghĩa
                 lblResult.Text = $"Nghĩa: {entry.Meaning}\nLoại từ: {entry.Type}\nPhiên âm: {entry.Pronunciation}";
             }
             else
@@ -92,20 +90,18 @@ namespace DictionaryApp
             }
         }
 
-        // ✅ Xóa kết quả khi nhập từ mới
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             lblResult.Text = "";
         }
 
-        // ✅ Thêm từ vào danh sách yêu thích
         private void btnAddToFavorites_Click(object sender, EventArgs e)
         {
             string word = txtSearch.Text.Trim();
 
-            if (!string.IsNullOrEmpty(word) && dictionary.ContainsKey(word))
+            if (!string.IsNullOrEmpty(word) && dictionary.Contains(word)) // 👈 Dùng dictionary.Contains
             {
-                if (favoriteWords.Add(word)) // Tránh thêm trùng
+                if (favoriteWords.Add(word)) // giữ nguyên
                 {
                     MessageBox.Show($"'{word}' đã được thêm vào danh sách yêu thích!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -120,27 +116,9 @@ namespace DictionaryApp
             }
         }
 
-        // ✅ Hiển thị danh sách từ yêu thích
         private void btnShowFavorites_Click(object sender, EventArgs e)
         {
             txtWord.Text = favoriteWords.Count > 0 ? string.Join(", ", favoriteWords) : "Chưa có từ yêu thích nào!";
-        }
-    }
-
-    // ✅ Lớp WordEntry đại diện cho một từ trong từ điển
-    public class WordEntry
-    {
-        public string Word { get; set; }
-        public string Meaning { get; set; }
-        public string Pronunciation { get; set; }
-        public string Type { get; set; }
-
-        public WordEntry(string word, string meaning, string pronunciation, string type)
-        {
-            Word = word;
-            Meaning = meaning;
-            Pronunciation = pronunciation;
-            Type = type;
         }
     }
 }

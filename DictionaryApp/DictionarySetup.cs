@@ -1,63 +1,70 @@
-﻿using System;
-using System.Collections;
-
-public class DictionaryManager : DictionaryBase
+﻿public class HashNode
 {
-    // ✅ Thêm từ vào từ điển
-    public void AddWord(string word, string meaning)
+    public string Key;
+    public WordEntry Value;
+    public HashNode Next;
+
+    public HashNode(string key, WordEntry value)
     {
-        // Directly add the word and its meaning (no check needed)
-        base.InnerHashtable.Add(word, meaning);
+        Key = key;
+        Value = value;
+        Next = null;
+    }
+}public class DictionaryManager
+{
+    private const int SIZE = 101;
+    private HashNode[] table;
+
+    public DictionaryManager()
+    {
+        table = new HashNode[SIZE];
     }
 
-    // ✅ Kiểm tra xem từ có tồn tại không
-    public bool Contains(string word)
+    private int HashFunction(string key)
     {
-        // Just check if the word exists directly in InnerHashtable
-        return base.InnerHashtable.Contains(word);
-    }
-
-    // ✅ Lấy định nghĩa của từ
-    public string GetDefinition(string word)
-    {
-        if (base.InnerHashtable.Contains(word))  // Directly check if the word exists
+        int hash = 0;
+        foreach (char c in key)
         {
-            return (string)base.InnerHashtable[word];
+            hash = (hash * 31 + c) % SIZE;
         }
-        else
-        {
-            return "Không tìm thấy từ này";  // Return a message if the word is not found
-        }
+        return hash;
     }
 
-    // ✅ Thêm từ vào danh sách yêu thích (Sử dụng InnerHashtable để lưu từ yêu thích)
-    public void AddToFavorites(string word)
+    public void AddWord(string key, WordEntry value)
     {
-        // Directly add the word as favorite by modifying its value in InnerHashtable
-        base.InnerHashtable[word] = "Yêu thích: " + (string)base.InnerHashtable[word];
-    }
+        int index = HashFunction(key);
+        HashNode current = table[index];
 
-    // ✅ Lấy danh sách các từ yêu thích (Lọc các từ có tiền tố "Yêu thích")
-    public void GetFavorites()
-    {
-        Console.WriteLine("Danh sách từ yêu thích:");
-        foreach (DictionaryEntry entry in base.InnerHashtable)
+        while (current != null)
         {
-            // Filter and print only words marked as favorites
-            if (entry.Value.ToString().StartsWith("Yêu thích"))
+            if (current.Key == key)
             {
-                Console.WriteLine($"{entry.Key}: {entry.Value}");
+                current.Value = value;
+                return;
             }
+            current = current.Next;
         }
+
+        HashNode newNode = new HashNode(key, value);
+        newNode.Next = table[index];
+        table[index] = newNode;
     }
 
-    // ✅ In toàn bộ từ điển
-    public void PrintAllWords()
+    public WordEntry GetDefinition(string key)
     {
-        Console.WriteLine("Danh sách từ điển:");
-        foreach (DictionaryEntry entry in base.InnerHashtable)
+        int index = HashFunction(key);
+        HashNode current = table[index];
+        while (current != null)
         {
-            Console.WriteLine($"{entry.Key}: {entry.Value}");
+            if (current.Key == key)
+                return current.Value;
+            current = current.Next;
         }
+        return null;
+    }
+
+    public bool Contains(string key)
+    {
+        return GetDefinition(key) != null;
     }
 }
