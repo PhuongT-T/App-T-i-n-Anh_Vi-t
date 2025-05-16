@@ -38,7 +38,7 @@ namespace DictionaryApp
             {
                 foreach (var line in File.ReadAllLines(dictionaryPath))
                 {
-                    var parts = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    var parts = line.Split(new string[] { ", " }, StringSplitOptions.None);
                     if (parts.Length == 4)
                     {
                         string english = parts[0].Trim();
